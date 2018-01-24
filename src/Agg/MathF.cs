@@ -15,6 +15,11 @@ namespace Agg {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float Tan(float radian) {
+            return (float)Math.Tan(radian);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Asin(float radian) {
             return (float)Math.Asin(radian);
         }
@@ -37,6 +42,16 @@ namespace Agg {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Round(float value) {
             return (float)Math.Round(value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float Floor(float value) {
+            return (float)Math.Floor(value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float Exp(float power) {
+            return (float)Math.Exp(power);
         }
 
     }

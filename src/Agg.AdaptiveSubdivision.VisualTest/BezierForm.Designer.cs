@@ -1,5 +1,5 @@
 ﻿namespace Agg.AdaptiveSubdivision.VisualTest {
-    partial class Form1 {
+    partial class BezierForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -25,13 +25,13 @@
         private void InitializeComponent() {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -65,6 +65,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(164, 417);
             this.panel1.TabIndex = 6;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 220);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(79, 29);
+            this.button1.TabIndex = 28;
+            this.button1.Text = "Random";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(5, 179);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(60, 16);
+            this.checkBox1.TabIndex = 27;
+            this.checkBox1.Text = "Points";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -108,28 +129,7 @@
             this.trackBar1.TabIndex = 22;
             this.trackBar1.Value = 20;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(5, 179);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(60, 16);
-            this.checkBox1.TabIndex = 27;
-            this.checkBox1.Text = "Points";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 220);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(79, 29);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "Random";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // Form1
+            // BezierForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -137,11 +137,9 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "BezierForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Adaptive Bezier Subdivision";
+            this.Text = "Bezier";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -47,14 +47,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="ArcForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ArcForm.Designer.cs">
+      <DependentUpon>ArcForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BezierForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BezierForm.Designer.cs">
+      <DependentUpon>BezierForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContainerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContainerForm.Designer.cs">
+      <DependentUpon>ContainerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingletonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SubdividerHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,8 +83,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ArcForm.resx">
+      <DependentUpon>ArcForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BezierForm.resx">
+      <DependentUpon>BezierForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContainerForm.resx">
+      <DependentUpon>ContainerForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

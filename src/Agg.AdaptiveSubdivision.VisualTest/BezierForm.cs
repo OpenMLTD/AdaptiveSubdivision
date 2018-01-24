@@ -8,21 +8,25 @@ using Microsoft.Xna.Framework;
 using Color = System.Drawing.Color;
 
 namespace Agg.AdaptiveSubdivision.VisualTest {
-    public partial class Form1 : Form {
+    public partial class BezierForm : SingletonForm {
 
-        public Form1() {
+        public BezierForm() {
             InitializeComponent();
             RegisterEventHandlers();
         }
 
-        ~Form1() {
+        ~BezierForm() {
             UnregisterEventHandlers();
+        }
+
+        public static BezierForm ShowInstance(Form mdiParent) {
+            return ShowInstance<BezierForm>(mdiParent);
         }
 
         private void UnregisterEventHandlers() {
             pictureBox1.MouseMove -= PictureBox1_MouseMove;
             pictureBox1.Paint -= PictureBox1_Paint;
-            Load -= Form1_Load;
+            Load -= BezierForm_Load;
             trackBar1.ValueChanged -= TrackBar1_ValueChanged;
             trackBar2.ValueChanged -= TrackBar2_ValueChanged;
             pictureBox1.SizeChanged -= PictureBox1_SizeChanged;
@@ -35,7 +39,7 @@ namespace Agg.AdaptiveSubdivision.VisualTest {
         private void RegisterEventHandlers() {
             pictureBox1.MouseMove += PictureBox1_MouseMove;
             pictureBox1.Paint += PictureBox1_Paint;
-            Load += Form1_Load;
+            Load += BezierForm_Load;
             trackBar1.ValueChanged += TrackBar1_ValueChanged;
             trackBar2.ValueChanged += TrackBar2_ValueChanged;
             pictureBox1.SizeChanged += PictureBox1_SizeChanged;
@@ -131,7 +135,7 @@ namespace Agg.AdaptiveSubdivision.VisualTest {
             pictureBox1.Invalidate();
         }
 
-        private void Form1_Load(object sender, EventArgs e) {
+        private void BezierForm_Load(object sender, EventArgs e) {
             _from = new Vector2(10, 10);
             _to = new Vector2(120, 120);
             _c1 = new Vector2(30, 100);

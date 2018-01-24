@@ -1,11 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace Agg.AdaptiveSubdivision {
     partial class Subdivider {
 
-        public static unsafe Vector2[] DivideArc(float centerX, float centerY, float radiusX, float radiusY,
-            float startAngle, float sweepAngle) {
+        public static Vector2[] DivideArc(float centerX, float centerY, float radiusX, float radiusY, float startAngle, float sweepAngle,
+            float distanceTolerance = DefaultBezierDistanceTolerance, float angleTolerance = DefaultBezierAngleTolerance, float cuspLimit = DefaultBezierCuspLimit) {
+            if (radiusX.Equals(radiusY)) {
+                var bezier = GetCircularArcBezierPoints(centerX, centerY, radiusX, radiusY, startAngle, sweepAngle);
+
+                if (bezier.Length <= 2) {
+                    return bezier;
+                }
+
+                var points = new List<Vector2>(30);
+                var currentPoint = bezier[0];
+
+                for (var i = 1; i < bezier.Length; i += 3) {
+                    var segPoints = DivideBezier(currentPoint.X, currentPoint.Y, bezier[i].X, bezier[i].Y, bezier[i + 1].X, bezier[i + 1].Y, bezier[i + 2].X, bezier[i + 2].Y,
+                        distanceTolerance, angleTolerance, cuspLimit);
+
+                    points.AddRange(segPoints);
+                    currentPoint = bezier[i + 2];
+                }
+
+                return points.ToArray();
+            } else {
+                var arc = new EllipticalArc(centerX, centerY, radiusX, radiusY, 0, startAngle, startAngle + sweepAngle);
+                var points = arc.Divide(ArcApproximator.Bezier, distanceTolerance, angleTolerance, cuspLimit);
+
+                return points;
+            }
+        }
+
+        private static unsafe Vector2[] GetCircularArcBezierPoints(float centerX, float centerY, float radiusX, float radiusY, float startAngle, float sweepAngle) {
             startAngle = startAngle % MathHelper.TwoPi;
 
             if (sweepAngle > MathHelper.TwoPi) {
@@ -52,7 +81,7 @@ namespace Agg.AdaptiveSubdivision {
                     }
                 }
 
-                BezierHelper.ArcToBezier(centerX, centerY, radiusX, radiusY, startAngle, localSweep, vertices + numVertices - 1);
+                ArcHelper.ArcToBezier(centerX, centerY, radiusX, radiusY, startAngle, localSweep, vertices + numVertices - 1);
                 numVertices += 3;
                 startAngle += localSweep;
             } while (!done && numVertices < ArcMaxVertices);
