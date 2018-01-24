@@ -69,9 +69,10 @@ namespace Agg.AdaptiveSubdivision {
 
             n = MathF.Sqrt((ux * ux + uy * uy) * (vx * vx + vy * vy));
             p = ux * vx + uy * vy;
-            sign = (ux * vy - uy * vx < 0) ? -1 : 1;
+            sign = (ux * vy - uy * vx) < 0 ? -1 : 1;
             v = p / n;
             v = MathHelper.Clamp(v, -1, 1);
+
             var sweepAngle = sign * MathF.Acos(v);
 
             if (!isClockwise && sweepAngle > 0) {
@@ -80,22 +81,7 @@ namespace Agg.AdaptiveSubdivision {
                 sweepAngle += MathHelper.TwoPi;
             }
 
-            var arcVertices = DivideArc(0, 0, radiusX, radiusY, startAngle, sweepAngle);
-
-            if (arcVertices.Length > 2) {
-                var matrix = Matrix3x2.CreateRotation(angle);
-                matrix *= Matrix3x2.CreateTranslation(cx, cy);
-
-                for (var i = 1; i < arcVertices.Length - 1; ++i) {
-                    arcVertices[i] = Matrix3x2.Transform(matrix, arcVertices[i]);
-                }
-            }
-
-            arcVertices[0] = new Vector2(fromX, toX);
-
-            if (arcVertices.Length > 1) {
-                arcVertices[arcVertices.Length - 1] = new Vector2(toX, toY);
-            }
+            var arcVertices = DivideArc(cx, cy, radiusX, radiusY, startAngle, sweepAngle, angle);
 
             return arcVertices;
         }
