@@ -28,11 +28,11 @@ namespace Agg.AdaptiveSubdivision {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal Vector2[] Divide(ArcApproximator approximator, float distanceTolerance, float angleTolerance, float cuspLimit) {
-            return Divide(approximator, _flatness, null, distanceTolerance, angleTolerance, cuspLimit);
+        internal Vector2[] Divide(ArcApproximator approximator, Matrix3x2? at, float distanceTolerance, float angleTolerance, float cuspLimit) {
+            return Divide(approximator, at, distanceTolerance, angleTolerance, cuspLimit, _flatness);
         }
 
-        private Vector2[] Divide(ArcApproximator approximator, float threshold, Matrix3x2? at, float distanceTolerance, float angleTolerance, float cuspLimit) {
+        private Vector2[] Divide(ArcApproximator approximator, Matrix3x2? at, float distanceTolerance, float angleTolerance, float cuspLimit, float threshold) {
             float dEta, etaB;
 
             var maxBezierCurvesNeededFound = false;

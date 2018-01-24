@@ -5,10 +5,10 @@ using Microsoft.Xna.Framework;
 namespace Agg.AdaptiveSubdivision {
     partial class Subdivider {
 
-        public static Vector2[] DivideArc(float centerX, float centerY, float radiusX, float radiusY, float startAngle, float sweepAngle,
+        public static Vector2[] DivideArc(float centerX, float centerY, float radiusX, float radiusY, float startAngle, float sweepAngle, float rotation = DefaultArcRotation,
             float distanceTolerance = DefaultBezierDistanceTolerance, float angleTolerance = DefaultBezierAngleTolerance, float cuspLimit = DefaultBezierCuspLimit) {
             if (radiusX.Equals(radiusY)) {
-                var bezier = GetCircularArcBezierPoints(centerX, centerY, radiusX, radiusY, startAngle, sweepAngle);
+                var bezier = GetCircularArcBezierPoints(centerX, centerY, radiusX, radiusY, startAngle, sweepAngle, rotation);
 
                 if (bezier.Length <= 2) {
                     return bezier;
@@ -27,14 +27,17 @@ namespace Agg.AdaptiveSubdivision {
 
                 return points.ToArray();
             } else {
-                var arc = new EllipticalArc(centerX, centerY, radiusX, radiusY, 0, startAngle, startAngle + sweepAngle);
-                var points = arc.Divide(ArcApproximator.Bezier, distanceTolerance, angleTolerance, cuspLimit);
+                var arc = new EllipticalArc(centerX, centerY, radiusX, radiusY, rotation, startAngle, startAngle + sweepAngle);
+                var points = arc.Divide(ArcApproximator.Bezier, null, distanceTolerance, angleTolerance, cuspLimit);
 
                 return points;
             }
         }
 
-        private static unsafe Vector2[] GetCircularArcBezierPoints(float centerX, float centerY, float radiusX, float radiusY, float startAngle, float sweepAngle) {
+        private static unsafe Vector2[] GetCircularArcBezierPoints(float centerX, float centerY, float radiusX, float radiusY, float startAngle, float sweepAngle, float rotation) {
+            // Rotation can be achieved by simply increasing the starting angle, when the curve is circular.
+            startAngle += rotation;
+
             startAngle = startAngle % MathHelper.TwoPi;
 
             if (sweepAngle > MathHelper.TwoPi) {
@@ -95,6 +98,7 @@ namespace Agg.AdaptiveSubdivision {
             return ret;
         }
 
+        private const float DefaultArcRotation = 0;
         private const float ArcEpsilon = 1e-10f;
         private const float BezierToArcAngleEpsilon = 0.01f;
         private const int ArcMaxVertices = 13;

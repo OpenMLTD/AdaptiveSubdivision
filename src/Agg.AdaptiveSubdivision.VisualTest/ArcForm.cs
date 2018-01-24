@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Color = System.Drawing.Color;
+using Matrix = System.Drawing.Drawing2D.Matrix;
 
 namespace Agg.AdaptiveSubdivision.VisualTest {
     public partial class ArcForm : SingletonForm {
@@ -37,6 +38,7 @@ namespace Agg.AdaptiveSubdivision.VisualTest {
             trackBar5.ValueChanged -= TrackBar5_ValueChanged;
             trackBar6.ValueChanged -= TrackBar6_ValueChanged;
             pictureBox1.SizeChanged -= PictureBox1_SizeChanged;
+            trackBar7.ValueChanged -= TrackBar7_ValueChanged;
         }
 
         private void RegisterEventHandlers() {
@@ -53,6 +55,17 @@ namespace Agg.AdaptiveSubdivision.VisualTest {
             trackBar5.ValueChanged += TrackBar5_ValueChanged;
             trackBar6.ValueChanged += TrackBar6_ValueChanged;
             pictureBox1.SizeChanged += PictureBox1_SizeChanged;
+            trackBar7.ValueChanged += TrackBar7_ValueChanged;
+        }
+
+        private void TrackBar7_ValueChanged(object sender, EventArgs e) {
+            var deg = trackBar7.Value;
+            var rad = MathHelper.ToRadians(deg);
+            label8.Text = $"Rotation: {deg} deg/{rad:0.##} rad";
+
+            _rotation = rad;
+
+            pictureBox1.Invalidate();
         }
 
         private void PictureBox1_SizeChanged(object sender, EventArgs e) {
@@ -90,6 +103,7 @@ namespace Agg.AdaptiveSubdivision.VisualTest {
             CheckBox1_CheckedChanged(null, EventArgs.Empty);
             TrackBar5_ValueChanged(null, EventArgs.Empty);
             TrackBar6_ValueChanged(null, EventArgs.Empty);
+            TrackBar7_ValueChanged(null, EventArgs.Empty);
 
             _center = new Vector2(300, 300);
 
@@ -188,11 +202,15 @@ namespace Agg.AdaptiveSubdivision.VisualTest {
             var rect = new RectangleF(center.X - ControlPointRadius, center.Y - ControlPointRadius, 2 * ControlPointRadius, 2 * ControlPointRadius);
             e.Graphics.FillEllipse(_brushCP, rect);
 
+            var mat = new Matrix();
+            mat.RotateAt(MathHelper.ToDegrees(_rotation), new PointF(center.X, center.Y));
+            e.Graphics.Transform = mat;
             e.Graphics.DrawArc(_penStandard, center.X - _radius.X, center.Y - _radius.Y, _radius.X * 2, _radius.Y * 2, MathHelper.ToDegrees(_startAngle), MathHelper.ToDegrees(_sweepAngle));
+            e.Graphics.ResetTransform();
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            var pts = Subdivider.DivideArc(center.X, center.Y, _radius.X, _radius.Y, _startAngle, _sweepAngle, _distTolerance, _angleTolerance);
+            var pts = Subdivider.DivideArc(center.X, center.Y, _radius.X, _radius.Y, _startAngle, _sweepAngle, _rotation, _distTolerance, _angleTolerance);
             stopwatch.Stop();
 
             for (var i = 0; i < pts.Length - 1; ++i) {
@@ -239,6 +257,7 @@ namespace Agg.AdaptiveSubdivision.VisualTest {
         private float _startAngle;
         private float _sweepAngle;
         private Vector2 _radius;
+        private float _rotation;
 
         private float _distTolerance;
         private float _angleTolerance;
