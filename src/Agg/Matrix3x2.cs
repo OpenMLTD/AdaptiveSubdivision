@@ -231,7 +231,7 @@ namespace Agg {
         }
         #endregion
 
-        private static readonly Matrix3x2 IdentityMatrix = new Matrix3x2(1, 0, 1, 0, 0, 0);
+        private static readonly Matrix3x2 IdentityMatrix = new Matrix3x2(1, 0, 0, 1, 0, 0);
 
     }
 }
