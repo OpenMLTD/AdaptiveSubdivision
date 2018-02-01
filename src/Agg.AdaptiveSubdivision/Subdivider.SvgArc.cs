@@ -5,12 +5,15 @@ namespace Agg.AdaptiveSubdivision {
     partial class Subdivider {
 
         public static Vector2[] DivideSvgArc(float fromX, float fromY, float toX, float toY, float radiusX, float radiusY, float angle,
-            bool isLarge, bool isClockwise) {
-            return DivideSvgArc(fromX, fromY, toX, toY, radiusX, radiusY, angle, isLarge, isClockwise, out var _);
+            bool isLarge, bool isClockwise,
+            float distanceTolerance = DefaultBezierDistanceTolerance, float angleTolerance = DefaultBezierAngleTolerance, float cuspLimit = DefaultBezierCuspLimit) {
+            return DivideSvgArc(fromX, fromY, toX, toY, radiusX, radiusY, angle, isLarge, isClockwise, out var _,
+                distanceTolerance, angleTolerance, cuspLimit);
         }
 
         public static Vector2[] DivideSvgArc(float fromX, float fromY, float toX, float toY, float radiusX, float radiusY, float angle,
-            bool isLarge, bool isClockwise, out bool radiiOk) {
+            bool isLarge, bool isClockwise, out bool radiiOk,
+            float distanceTolerance = DefaultBezierDistanceTolerance, float angleTolerance = DefaultBezierAngleTolerance, float cuspLimit = DefaultBezierCuspLimit) {
             radiiOk = true;
 
             radiusX = Math.Abs(radiusX);
@@ -81,7 +84,8 @@ namespace Agg.AdaptiveSubdivision {
                 sweepAngle += MathHelper.TwoPi;
             }
 
-            var arcVertices = DivideArc(cx, cy, radiusX, radiusY, startAngle, sweepAngle, angle);
+            var arcVertices = DivideArc(cx, cy, radiusX, radiusY, startAngle, sweepAngle, angle,
+                distanceTolerance, angleTolerance, cuspLimit);
 
             return arcVertices;
         }
