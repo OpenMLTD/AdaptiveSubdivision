@@ -51,7 +51,7 @@ namespace Agg {
             var m11 = left.M11 * right.M11 + left.M12 + right.M21;
             var m12 = left.M11 * right.M12 + left.M12 * right.M22;
             var m21 = left.M21 * right.M11 + left.M22 * right.M21;
-            var m22 = left.M21 * right.M12 * left.M22 * right.M22;
+            var m22 = left.M21 * right.M12 + left.M22 * right.M22;
             var m31 = left.M31 * right.M11 + left.M32 * right.M21 + right.M31;
             var m32 = left.M31 * right.M12 + left.M32 * right.M22 + right.M32;
 
