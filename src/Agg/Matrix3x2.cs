@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework;
 namespace Agg;
 
 // ReSharper disable once InconsistentNaming
-internal struct Matrix3x2 : IEquatable<Matrix3x2>
+public readonly struct Matrix3x2 : IEquatable<Matrix3x2>
 {
 
-    internal Matrix3x2(float m11, float m12, float m21, float m22, float m31, float m32)
+    public Matrix3x2(float m11, float m12, float m21, float m22, float m31, float m32)
     {
         M11 = m11;
         M12 = m12;
@@ -29,10 +29,12 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         M32 = elem;
     }
 
-    internal float M11, M12, M21, M22, M31, M32;
+    // ReSharper disable InconsistentNaming
+    private readonly float M11, M12, M21, M22, M31, M32;
+    // ReSharper restore InconsistentNaming
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static Vector2 Transform(Matrix3x2 matrix, Vector2 vector)
+    public static Vector2 Transform(Matrix3x2 matrix, Vector2 vector)
     {
         var x = vector.X * matrix.M11 + vector.Y * matrix.M21 + matrix.M31;
         var y = vector.X * matrix.M12 + vector.Y * matrix.M22 + matrix.M32;
@@ -40,21 +42,21 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         return new Vector2(x, y);
     }
 
-    internal bool IsIdentity => this == IdentityMatrix;
+    public bool IsIdentity => this == IdentityMatrix;
 
-    internal static Matrix3x2 Identity => IdentityMatrix;
+    public static Matrix3x2 Identity => IdentityMatrix;
 
-    internal static Matrix3x2 Add(Matrix3x2 left, Matrix3x2 right)
+    public static Matrix3x2 Add(Matrix3x2 left, Matrix3x2 right)
     {
         return new Matrix3x2(left.M11 + right.M11, left.M12 + right.M12, left.M21 + right.M21, left.M22 + right.M22, left.M31 + right.M31, left.M32 + right.M32);
     }
 
-    internal static Matrix3x2 Subtract(Matrix3x2 left, Matrix3x2 right)
+    public static Matrix3x2 Subtract(Matrix3x2 left, Matrix3x2 right)
     {
         return new Matrix3x2(left.M11 - right.M11, left.M12 - right.M12, left.M21 - right.M21, left.M22 - right.M22, left.M31 - right.M31, left.M32 - right.M32);
     }
 
-    internal static Matrix3x2 Multiply(Matrix3x2 left, Matrix3x2 right)
+    public static Matrix3x2 Multiply(Matrix3x2 left, Matrix3x2 right)
     {
         var m11 = left.M11 * right.M11 + left.M12 + right.M21;
         var m12 = left.M11 * right.M12 + left.M12 * right.M22;
@@ -66,7 +68,7 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         return new Matrix3x2(m11, m12, m21, m22, m31, m32);
     }
 
-    internal static Matrix3x2 Multiply(Matrix3x2 matrix, float factor)
+    public static Matrix3x2 Multiply(Matrix3x2 matrix, float factor)
     {
         return new Matrix3x2(matrix.M11 * factor, matrix.M12 * factor, matrix.M21 * factor, matrix.M22 * factor, matrix.M31 * factor, matrix.M32 * factor);
     }
@@ -96,18 +98,18 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         return Multiply(right, left);
     }
 
-    internal float GetDeterminant()
+    public float GetDeterminant()
     {
         return M11 * M22 - M21 * M12;
     }
 
     // ReSharper disable once InconsistentNaming
-    internal Matrix ToMatrix4x4()
+    public Matrix ToMatrix4x4()
     {
         return new Matrix(M11, M12, 0, 0, M21, M22, 0, 0, 0, 0, 1, 0, M31, M32, 0, 1);
     }
 
-    internal static Matrix3x2 Invert(Matrix3x2 matrix, out bool successful)
+    public static Matrix3x2 Invert(Matrix3x2 matrix, out bool successful)
     {
         successful = false;
 
@@ -130,7 +132,7 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         return new Matrix3x2(m11, m12, m21, m22, m31, m32);
     }
 
-    internal static Matrix3x2 Lerp(Matrix3x2 from, Matrix3x2 to, float amount)
+    public static Matrix3x2 Lerp(Matrix3x2 from, Matrix3x2 to, float amount)
     {
         var m11 = MathHelper.Lerp(from.M11, to.M11, amount);
         var m12 = MathHelper.Lerp(from.M12, to.M12, amount);
@@ -142,32 +144,32 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         return new Matrix3x2(m11, m12, m21, m22, m31, m32);
     }
 
-    internal static Matrix3x2 Negate(Matrix3x2 matrix)
+    public static Matrix3x2 Negate(Matrix3x2 matrix)
     {
         return new Matrix3x2(-matrix.M11, -matrix.M12, -matrix.M21, -matrix.M22, -matrix.M31, -matrix.M32);
     }
 
-    internal static Matrix3x2 CreateTranslation(float x, float y)
+    public static Matrix3x2 CreateTranslation(float x, float y)
     {
         return new Matrix3x2(1, 0, 0, 1, x, y);
     }
 
-    internal static Matrix3x2 CreateTranslation(Vector2 translation)
+    public static Matrix3x2 CreateTranslation(Vector2 translation)
     {
         return CreateTranslation(translation.X, translation.Y);
     }
 
-    internal static Matrix3x2 CreateScale(float scaleX, float scaleY)
+    public static Matrix3x2 CreateScale(float scaleX, float scaleY)
     {
         return new Matrix3x2(scaleX, 0, 0, scaleY, 0, 0);
     }
 
-    internal static Matrix3x2 CreateScale(Vector2 scale)
+    public static Matrix3x2 CreateScale(Vector2 scale)
     {
         return CreateScale(scale.X, scale.Y);
     }
 
-    internal static Matrix3x2 CreateScale(float scaleX, float scaleY, Vector2 origin)
+    public static Matrix3x2 CreateScale(float scaleX, float scaleY, Vector2 origin)
     {
         var tx = origin.X * (1 - scaleX);
         var ty = origin.Y * (1 - scaleY);
@@ -175,12 +177,12 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         return new Matrix3x2(scaleX, 0, 0, scaleY, tx, ty);
     }
 
-    internal static Matrix3x2 CreateScale(Vector2 scale, Vector2 origin)
+    public static Matrix3x2 CreateScale(Vector2 scale, Vector2 origin)
     {
         return CreateScale(scale.X, scale.Y, origin);
     }
 
-    internal static Matrix3x2 CreateRotation(float rotation)
+    public static Matrix3x2 CreateRotation(float rotation)
     {
         var cos = (float)Math.Cos(rotation);
         var sin = (float)Math.Sqrt(1 - cos * cos);
@@ -188,7 +190,7 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         return new Matrix3x2(cos, sin, -sin, cos, 0, 0);
     }
 
-    internal static Matrix3x2 CreateRotation(float rotation, Vector2 origin)
+    public static Matrix3x2 CreateRotation(float rotation, Vector2 origin)
     {
         var cos = (float)Math.Cos(rotation);
         var sin = (float)Math.Sqrt(1 - cos * cos);
@@ -199,7 +201,7 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         return new Matrix3x2(cos, sin, -sin, cos, tx, ty);
     }
 
-    internal static Matrix3x2 CreateSkew(float skewX, float skewY)
+    public static Matrix3x2 CreateSkew(float skewX, float skewY)
     {
         var sx = (float)Math.Tan(skewX);
         var sy = (float)Math.Tan(skewY);
@@ -207,12 +209,12 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         return new Matrix3x2(1, sy, sx, 1, 0, 0);
     }
 
-    internal static Matrix3x2 CreateSkew(Vector2 skew)
+    public static Matrix3x2 CreateSkew(Vector2 skew)
     {
         return CreateSkew(skew.X, skew.Y);
     }
 
-    internal static Matrix3x2 CreateSkew(float skewX, float skewY, Vector2 origin)
+    public static Matrix3x2 CreateSkew(float skewX, float skewY, Vector2 origin)
     {
         var sx = (float)Math.Tan(skewX);
         var sy = (float)Math.Tan(skewY);
@@ -223,7 +225,7 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         return new Matrix3x2(1, sy, sx, 1, tx, ty);
     }
 
-    internal static Matrix3x2 CreateSkew(Vector2 skew, Vector2 origin)
+    public static Matrix3x2 CreateSkew(Vector2 skew, Vector2 origin)
     {
         return CreateSkew(skew.X, skew.Y, origin);
     }
@@ -235,7 +237,7 @@ internal struct Matrix3x2 : IEquatable<Matrix3x2>
         return M11.Equals(other.M11) && M12.Equals(other.M12) && M21.Equals(other.M21) && M22.Equals(other.M22) && M31.Equals(other.M31) && M32.Equals(other.M32);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj))
         {
