@@ -1,108 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A5F2E413-CE72-4DD3-BB04-A442E240DA87}</ProjectGuid>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Agg.AdaptiveSubdivision.VisualTest</RootNamespace>
-    <AssemblyName>Agg.AdaptiveSubdivision.VisualTest</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MonoGame.Framework.DesktopGL.3.6.0.1625\lib\net40\MonoGame.Framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\Agg.AdaptiveSubdivision\Agg.AdaptiveSubdivision.csproj" />
+    <ProjectReference Include="..\Agg\Agg.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ArcForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ArcForm.Designer.cs">
-      <DependentUpon>ArcForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BezierForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BezierForm.Designer.cs">
-      <DependentUpon>BezierForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ContainerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ContainerForm.Designer.cs">
-      <DependentUpon>ContainerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SingletonForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubdividerHelper.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Agg.AdaptiveSubdivision\Agg.AdaptiveSubdivision.csproj">
-      <Project>{fe7c0cd9-f606-45ac-8ec0-acc17835ec04}</Project>
-      <Name>Agg.AdaptiveSubdivision</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Agg\Agg.csproj">
-      <Project>{15ad7f74-8bbc-4bad-b153-9bf8c44b54ab}</Project>
-      <Name>Agg</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ArcForm.resx">
-      <DependentUpon>ArcForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BezierForm.resx">
-      <DependentUpon>BezierForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ContainerForm.resx">
-      <DependentUpon>ContainerForm.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MonoGame.Framework.dll.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
 </Project>

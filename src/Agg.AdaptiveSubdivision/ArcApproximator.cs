@@ -1,9 +1,12 @@
-﻿namespace Agg.AdaptiveSubdivision {
-    internal enum ArcApproximator {
+﻿namespace Agg.AdaptiveSubdivision;
 
-        Bezier = 0,
-        QuadraticBezier = 1,
-        Line = 2
+internal enum ArcApproximator
+{
 
-    }
+    Bezier = 0,
+
+    QuadraticBezier = 1,
+
+    Line = 2
+
 }
